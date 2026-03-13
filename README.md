@@ -3,6 +3,11 @@
 A full-stack Airbnb-inspired web application where users can explore, create, and review travel listings from around the world.
 
 ---
+🌐 Live Demo — https://wanderlust-project-dr7b.onrender.com
+
+> Note: App may take 30–50 seconds to load on first visit as Render free tier spins down after inactivity.
+
+---
 
 ## 🛠️ Tech Stack
 
