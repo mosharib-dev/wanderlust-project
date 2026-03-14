@@ -5,9 +5,14 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 const cloudinary = require("cloudinary").v2;
 
 
-module.exports.index = async (req,res) => {
-    const allListings = await Listing.find({});
-    res.render("listing/index",{allListings});
+module.exports.index = async (req, res) => {
+    const { category } = req.query;
+    let filter = {};
+    if (category) {
+        filter.category = category;
+    }
+    const allListings = await Listing.find(filter);
+    res.render("listing/index", { allListings, activeCategory: category || null });
 };
 
 module.exports.new = (req,res) => {

@@ -31,7 +31,8 @@ A full-stack Airbnb-inspired web application where users can explore, create, an
 - Leave and delete reviews with star ratings
 - Authorization — only owners can edit/delete their listings
 - Flash messages for success and error feedback
-- Responsive design
+- Category filter — filter listings by mountains, beaches, cities etc.
+- Responsive design — works on mobile, tablet and desktop
 
 ---
 

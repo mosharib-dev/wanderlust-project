@@ -2,89 +2,123 @@
 <style>
     #filters {
         display: flex;
-        flex-wrap: wrap;
+        overflow-x: auto;
+        flex-wrap: nowrap;
         align-items: center;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
-    .filter{
+
+    #filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter {
+        text-decoration: none;
+        color: #222222;
         text-align: center;
         margin-right: 1.30rem;
-        margin-top: 2rem;
+        margin-top: 1rem;
         opacity: 0.7;
+        flex-shrink: 0;
     }
-    .filter:hover{
+
+    .filter:hover {
         opacity: 1;
         cursor: pointer;
     }
 
     .filter p {
-       font-size: 0.8rem; 
+        font-size: 0.8rem;
+        margin-bottom: 0;
     }
-    .tax-info{
+
+    .active-filter {
+        opacity: 1 !important;
+        border-bottom: 2px solid #222222;
+        padding-bottom: 4px;
+    }
+
+    .tax-info {
         display: none;
     }
-    .tax-toggle{
-        border:  1px solid black;
+
+    .tax-toggle {
+        border: 1px solid black;
         border-radius: 1rem;
         height: 3.25rem;
         padding: 1rem;
-        margin-left: 2rem;
+        margin-left: 1rem;
         display: flex;
         align-items: center;
+        flex-shrink: 0;
+    }
+
+    /* Responsive card height */
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 12rem !important;
+        }
+
+        .tax-toggle label {
+            font-size: 0.75rem;
+        }
     }
 </style>
     
-    <div id="filters" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem;">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></i></div>
-            <p>Room</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></i></div>
-            <p>Mountains</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-fort-awesome"></i></div>
-            <p>Castles</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></i></div>
-            <p>Amazing Pools</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-cow"></i></div>
-            <p>Farms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-snowflake"></i></i></div>
-            <p>Arctic</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-igloo"></i></div>
-            <p>Domes</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-ship"></i></i></div>
-            <p>Boats</p>
-        </div>
-        <div class="tax-toggle ms-auto flex-shrink-0">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-            </div>
+<div id="filters">
+    <a href="/listing" class="filter <%= !activeCategory ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </a>
+    <a href="/listing?category=room" class="filter <%= activeCategory === 'room' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Room</p>
+    </a>
+    <a href="/listing?category=iconic cities" class="filter <%= activeCategory === 'iconic cities' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic Cities</p>
+    </a>
+    <a href="/listing?category=mountains" class="filter <%= activeCategory === 'mountains' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountains</p>
+    </a>
+    <a href="/listing?category=castles" class="filter <%= activeCategory === 'castles' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-fort-awesome"></i></div>
+        <p>Castles</p>
+    </a>
+    <a href="/listing?category=amazing pools" class="filter <%= activeCategory === 'amazing pools' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Amazing Pools</p>
+    </a>
+    <a href="/listing?category=camping" class="filter <%= activeCategory === 'camping' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Camping</p>
+    </a>
+    <a href="/listing?category=farms" class="filter <%= activeCategory === 'farms' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-cow"></i></div>
+        <p>Farms</p>
+    </a>
+    <a href="/listing?category=arctic" class="filter <%= activeCategory === 'arctic' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>Arctic</p>
+    </a>
+    <a href="/listing?category=domes" class="filter <%= activeCategory === 'domes' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-igloo"></i></div>
+        <p>Domes</p>
+    </a>
+    <a href="/listing?category=boats" class="filter <%= activeCategory === 'boats' ? 'active-filter' : '' %>">
+        <div><i class="fa-solid fa-ship"></i></div>
+        <p>Boats</p>
+    </a>
+    <div class="tax-toggle ms-auto flex-shrink-0">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
         </div>
     </div>
+</div>
     <!-- Replace your current card loop with this -->
 <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3 g-3">
     <% for(listing of allListings) { %>
