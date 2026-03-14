@@ -54,7 +54,7 @@ const listingsData = [
         country: "Switzerland",
         category: "mountains",
         geometry: { type: "Point", coordinates: [7.7491, 46.0207] },
-        image: sampleImages[4],
+        image: sampleImages[1],
     },
     {
         title: "Himalayan Retreat in Dharamshala",
@@ -64,7 +64,7 @@ const listingsData = [
         country: "India",
         category: "mountains",
         geometry: { type: "Point", coordinates: [76.3234, 32.2190] },
-        image: sampleImages[16],
+        image: sampleImages[2],
     },
 
     // AMAZING POOLS
@@ -76,7 +76,7 @@ const listingsData = [
         country: "India",
         category: "amazing pools",
         geometry: { type: "Point", coordinates: [73.7553, 15.5440] },
-        image: sampleImages[1],
+        image: sampleImages[3],
     },
     {
         title: "Bali Jungle Villa with Private Pool",
@@ -86,7 +86,7 @@ const listingsData = [
         country: "Indonesia",
         category: "amazing pools",
         geometry: { type: "Point", coordinates: [115.2624, -8.5069] },
-        image: sampleImages[6],
+        image: sampleImages[4],
     },
     {
         title: "Luxury Hilltop Villa in Santorini",
@@ -96,7 +96,7 @@ const listingsData = [
         country: "Greece",
         category: "amazing pools",
         geometry: { type: "Point", coordinates: [25.3753, 36.4618] },
-        image: sampleImages[11],
+        image: sampleImages[5],
     },
 
     // ICONIC CITIES
@@ -108,7 +108,7 @@ const listingsData = [
         country: "United States",
         category: "iconic cities",
         geometry: { type: "Point", coordinates: [-73.9442, 40.6782] },
-        image: sampleImages[5],
+        image: sampleImages[6],
     },
     {
         title: "Modern Apartment in Paris",
@@ -118,7 +118,7 @@ const listingsData = [
         country: "France",
         category: "iconic cities",
         geometry: { type: "Point", coordinates: [2.3022, 48.8566] },
-        image: sampleImages[10],
+        image: sampleImages[7],
     },
     {
         title: "Heritage Haveli in Jaipur",
@@ -128,7 +128,7 @@ const listingsData = [
         country: "India",
         category: "iconic cities",
         geometry: { type: "Point", coordinates: [75.7873, 26.9124] },
-        image: sampleImages[17],
+        image: sampleImages[8],
     },
 
     // CAMPING
@@ -140,7 +140,7 @@ const listingsData = [
         country: "India",
         category: "camping",
         geometry: { type: "Point", coordinates: [75.7382, 12.3375] },
-        image: sampleImages[3],
+        image: sampleImages[9],
     },
     {
         title: "Jungle Camp in Jim Corbett",
@@ -150,7 +150,7 @@ const listingsData = [
         country: "India",
         category: "camping",
         geometry: { type: "Point", coordinates: [78.7742, 29.5300] },
-        image: sampleImages[14],
+        image: sampleImages[10],
     },
 
     // BOATS
@@ -162,7 +162,7 @@ const listingsData = [
         country: "Maldives",
         category: "boats",
         geometry: { type: "Point", coordinates: [73.5093, 4.1755] },
-        image: sampleImages[2],
+        image: sampleImages[11],
     },
     {
         title: "Kerala Houseboat on Backwaters",
@@ -172,7 +172,7 @@ const listingsData = [
         country: "India",
         category: "boats",
         geometry: { type: "Point", coordinates: [76.3388, 9.4981] },
-        image: sampleImages[19],
+        image: sampleImages[12],
     },
 
     // FARMS
@@ -184,7 +184,7 @@ const listingsData = [
         country: "Italy",
         category: "farms",
         geometry: { type: "Point", coordinates: [11.3307, 43.3186] },
-        image: sampleImages[9],
+        image: sampleImages[13],
     },
     {
         title: "Organic Farm Stay in Wayanad",
@@ -194,7 +194,7 @@ const listingsData = [
         country: "India",
         category: "farms",
         geometry: { type: "Point", coordinates: [76.0820, 11.6854] },
-        image: sampleImages[13],
+        image: sampleImages[14],
     },
 
     // ARCTIC
@@ -206,7 +206,7 @@ const listingsData = [
         country: "Finland",
         category: "arctic",
         geometry: { type: "Point", coordinates: [25.7294, 66.5039] },
-        image: sampleImages[12],
+        image: sampleImages[15],
     },
 
     // TRENDING
@@ -218,7 +218,7 @@ const listingsData = [
         country: "Thailand",
         category: "trending",
         geometry: { type: "Point", coordinates: [98.3923, 7.8804] },
-        image: sampleImages[8],
+        image: sampleImages[16],
     },
     {
         title: "Seaside Cottage in Kerala Backwaters",
@@ -228,7 +228,7 @@ const listingsData = [
         country: "India",
         category: "trending",
         geometry: { type: "Point", coordinates: [76.3388, 9.4981] },
-        image: sampleImages[7],
+        image: sampleImages[17],
     },
 
     // ROOM
@@ -240,7 +240,7 @@ const listingsData = [
         country: "India",
         category: "room",
         geometry: { type: "Point", coordinates: [72.8347, 19.0596] },
-        image: sampleImages[15],
+        image: sampleImages[18],
     },
 
     // CASTLES
@@ -252,7 +252,7 @@ const listingsData = [
         country: "United Kingdom",
         category: "castles",
         geometry: { type: "Point", coordinates: [-4.2247, 57.4778] },
-        image: sampleImages[18],
+        image: sampleImages[19],
     },
 ];
 
