@@ -21,6 +21,7 @@
                     <p class="card-text"><%= listing.description %></p>
                     <p class="card-text"><b>&#8377; <%= listing.price.toLocaleString("en-IN") %> / night</b></p>
                     <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= listing.location %>, <%= listing.country %></p>
+                    <p class="card-text"> <b>Category:</b> <%= listing.category.charAt(0).toUpperCase() + listing.category.slice(1) %></p>
                 </div>
             </div>
         </div>
