@@ -3,7 +3,7 @@ const Review = require("./models/review");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingschema , reviewschema } = require("./schema.js");
 
-// to validate the listing data coming from the form (server side validation)
+//(server side validation)
 module.exports.validatelisting = (req,res,next) => {
     let {error} = listingschema.validate(req.body);
     if(error){
@@ -15,7 +15,7 @@ module.exports.validatelisting = (req,res,next) => {
     }
 }
 
-// to validate the review data coming from the form(server side validation)
+// (server side validation)
 module.exports.validatereview = (req,res,next) => {
     let { error } = reviewschema.validate(req.body);
     if(error){
@@ -30,14 +30,13 @@ module.exports.validatereview = (req,res,next) => {
 // to check if the user is logged in or not
 module.exports.isLoggedIn = (req,res,next) => {
     if(!req.isAuthenticated()){
-        req.session.returnTo = req.originalUrl; // store the url they are requesting in session, so that after login we can redirect them to that url.
+        req.session.returnTo = req.originalUrl; 
         req.flash("error","You must be signed in to create a listing!!");
         return res.redirect("/login");
     }
     next();
 }
 
-// to check if the user is the owner of the listing or not
 module.exports.saveReturnTo = (req,res,next) => {
     if(req.session.returnTo){
         res.locals.returnTo = req.session.returnTo; 

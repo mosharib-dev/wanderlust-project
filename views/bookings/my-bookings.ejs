@@ -1,0 +1,180 @@
+<% layout("/Layout/boilerplate") %>
+
+<style>
+  .booking-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+  .booking-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .booking-card:hover {
+    transform: translateY(-3px);
+  }
+  .status-confirmed {
+    background: #e6faf0;
+    color: #1a7a4a;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+  }
+  .status-cancelled {
+    background: #ffeaea;
+    color: #c0392b;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+  }
+  .btn-ticket {
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-ticket:hover { background: #444; color: white; }
+  .btn-letter {
+    background: white;
+    color: #222;
+    border: 1.5px solid #222;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-letter:hover { background: #f5f5f5; color: #222; }
+  .btn-cancel {
+    background: white;
+    color: #fe424d;
+    border: 1.5px solid #fe424d;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-cancel:hover { background: #fff0f0; }
+  .booking-meta {
+    font-size: 13.5px;
+    color: #444;
+    line-height: 2;
+  }
+  .booking-meta span { color: #222; font-weight: 600; }
+  .price-highlight {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fe424d;
+  }
+</style>
+
+<div class="container mt-4 mb-5">
+
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h3 class="fw-bold mb-0">My Bookings</h3>
+    <a href="/listing" class="btn btn-sm btn-outline-dark rounded-pill">
+      <i class="fa-solid fa-compass me-1"></i> Explore More
+    </a>
+  </div>
+  <hr class="mb-4">
+
+  <% if(bookings.length === 0) { %>
+    <div class="text-center mt-5 py-5">
+      <i class="fa-solid fa-calendar-xmark fa-4x text-muted mb-3"></i>
+      <h5 class="text-muted">No bookings yet</h5>
+      <p class="text-muted small">Start exploring and book your first stay!</p>
+      <a href="/listing" class="btn px-4 mt-2" style="background:#fe424d; color:white; border-radius:10px;">
+        Explore Listings
+      </a>
+    </div>
+
+  <% } else { %>
+    <div class="row g-4">
+      <% for(let booking of bookings) { %>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card booking-card h-100">
+
+          <img
+            src="<%= booking.listing.image.url %>"
+            class="booking-card-img"
+            alt="<%= booking.listing.title %>">
+
+          <div class="card-body pb-2">
+
+            <h6 class="fw-bold mb-1" style="font-size:15px;">
+              <%= booking.listing.title %>
+            </h6>
+            <p class="text-muted small mb-3">
+              <i class="fa-solid fa-location-dot me-1" style="color:#fe424d;"></i>
+              <%= booking.listing.location %>, <%= booking.listing.country %>
+            </p>
+
+            <div class="booking-meta mb-3">
+              <div><i class="fa-solid fa-arrow-right-to-bracket me-2 text-muted"></i>Check-In: <span><%= new Date(booking.checkIn).toDateString() %></span></div>
+              <div><i class="fa-solid fa-arrow-right-from-bracket me-2 text-muted"></i>Check-Out: <span><%= new Date(booking.checkOut).toDateString() %></span></div>
+              <div><i class="fa-solid fa-moon me-2 text-muted"></i>Nights: <span><%= booking.nights %></span></div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="price-highlight">₹<%= booking.totalPrice.toLocaleString("en-IN") %></div>
+              <% if(booking.status === 'confirmed') { %>
+                <span class="status-confirmed">✓ CONFIRMED</span>
+              <% } else { %>
+                <span class="status-cancelled">✕ CANCELLED</span>
+              <% } %>
+            </div>
+
+          </div>
+
+          <div class="card-footer bg-white border-0 pt-0 pb-3 px-3">
+            <div class="d-flex flex-wrap gap-2">
+
+              <a href="/bookings/<%= booking.bookingId %>/ticket"
+                 class="btn-ticket">
+                <i class="fa-solid fa-ticket"></i> Ticket
+              </a>
+
+              <a href="/bookings/<%= booking.bookingId %>/letter"
+                 class="btn-letter">
+                <i class="fa-solid fa-file-lines"></i> Letter
+              </a>
+
+              <% if(booking.status === 'confirmed') { %>
+              <form method="POST"
+                    action="/bookings/<%= booking.bookingId %>?_method=DELETE"
+                    onsubmit="return confirm('Cancel this booking?')">
+                <button type="submit" class="btn-cancel">
+                  Cancel
+                </button>
+              </form>
+              <% } %>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <% } %>
+    </div>
+  <% } %>
+
+</div>

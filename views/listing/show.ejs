@@ -2,7 +2,7 @@
 <script>
     const mapToken = "<%= mapToken %>";
     const listing = <%- JSON.stringify(listing) %>;
-</script>
+</script> 
 
 <div class="container mt-3">
 
@@ -39,6 +39,78 @@
     </div>
     <% } %>
 
+    <!-- Booking Button — visible to logged-in non-owners -->
+    <% if(currentUser && !currentUser._id.equals(listing.owner._id)) { %>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-8">
+            <div class="card shadow-sm border-0" style="border-radius:16px; overflow:hidden;">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0 fw-bold">
+                                ₹<%= listing.price.toLocaleString("en-IN") %>
+                                <span class="text-muted fw-normal fs-6">/ night</span>
+                            </h5>
+                            <p class="text-muted small mb-0 mt-1">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <%= listing.location %>, <%= listing.country %>
+                            </p>
+                        </div>
+                        <a href="/listing/<%= listing._id %>/book"
+                        class="btn btn-lg px-4"
+                        style="background-color:#fe424d; color:white; border-radius:10px; font-weight:600;">
+                            <i class="fa-solid fa-calendar-check me-2"></i>Book Now
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+    <!-- Owner sees quick date booking -->
+    <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-8">
+            <div class="alert alert-info border-0 rounded-3">
+                <i class="fa-solid fa-circle-info me-2"></i> You own this listing. Guests can book it.
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <% if(!currentUser) { %>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-8">
+            <div class="card shadow-sm border-0 p-4 text-center" style="border-radius:16px;">
+                <p class="mb-2 text-muted">Want to stay here?</p>
+                <a href="/login" class="btn btn-dark px-4 rounded-pill">Login to Book</a>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- Price preview script -->
+    <script>
+        const pricePerNight = <%= listing.price || 0 %>;
+        const checkIn = document.querySelector('input[name="checkIn"]');
+        const checkOut = document.querySelector('input[name="checkOut"]');
+        const preview = document.getElementById("price-preview");
+
+        function updatePreview() {
+            if (checkIn.value && checkOut.value) {
+                const nights = Math.ceil((new Date(checkOut.value) - new Date(checkIn.value)) / (1000*60*60*24));
+                if (nights > 0) {
+                    preview.innerHTML = `₹${pricePerNight.toLocaleString("en-IN")} × ${nights} nights = <b>₹${(pricePerNight * nights).toLocaleString("en-IN")}</b>`;
+                } else {
+                    preview.innerHTML = `<span class="text-danger">Check-out must be after check-in</span>`;
+                }
+            }
+        }
+
+        checkIn.addEventListener("change", updatePreview);
+        checkOut.addEventListener("change", updatePreview);
+    </script>
     <!-- Review Form -->
     <div class="row justify-content-center mt-4">
         <div class="col-12 col-md-8">

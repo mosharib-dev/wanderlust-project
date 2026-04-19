@@ -15,10 +15,14 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
-
+const { isLoggedIn } = require("./middleware.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const bookingRouter = require("./routes/booking.js");
+const myBookingsRouter = require("./routes/myBookings.js");
+const wrapAsync = require("./utils/wrapAsync");
+const bookingController = require("./controllers/booking.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
@@ -79,13 +83,19 @@ app.use((req, res, next) => {
     const errorFlash = req.flash("error");
     res.locals.success = Array.isArray(successFlash) ? successFlash : [];
     res.locals.error = Array.isArray(errorFlash) ? errorFlash : [];
-    res.locals.currentUser = req.user || null;  // ✅ ensure always set
+    res.locals.currentUser = req.user || null;  
     next();
 });
 
 app.get("/", (req, res) => {
     res.redirect("/listing");
 });
+
+// For Booking 
+app.use("/listing/:id/bookings",isLoggedIn, bookingRouter);
+
+// In app.js or listing routes:
+app.get("/listing/:id/book", isLoggedIn, wrapAsync(bookingController.showBookingPage));
 
 // For all listing routes
 app.use("/listing",listingRouter); 
@@ -95,6 +105,9 @@ app.use("/listing/:id/reviews",reviewRouter);
 
 // For all user routes
 app.use("/",userRouter);
+
+// Standalone (for my-bookings, ticket download, cancel)
+app.use("/bookings", myBookingsRouter);
 
 
 app.use((req, res, next) => {
