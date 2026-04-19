@@ -1,9 +1,10 @@
 # 🏕️ WanderLust
 
-A full-stack Airbnb-inspired web application where users can explore, create, and review travel listings from around the world.
+A full-stack Airbnb-inspired web application where users can explore, create, review, and **book** travel listings from around the world.
 
 ---
-🌐 Live Demo — https://wanderlust-project-dr7b.onrender.com
+
+🌐 **Live Demo** — https://wanderlust-project-dr7b.onrender.com
 
 > Note: App may take 30–50 seconds to load on first visit as Render free tier spins down after inactivity.
 
@@ -19,6 +20,8 @@ A full-stack Airbnb-inspired web application where users can explore, create, an
 - **Maps** — Mapbox GL JS
 - **Templating** — EJS + EJS-Mate
 - **Styling** — Bootstrap 5
+- **Email** — Nodemailer (Gmail SMTP)
+- **PDF Generation** — PDFKit
 
 ---
 
@@ -34,17 +37,31 @@ A full-stack Airbnb-inspired web application where users can explore, create, an
 - Category filter — filter listings by mountains, beaches, cities etc.
 - Responsive design — works on mobile, tablet and desktop
 
+### 🗓️ Booking System
+- Guests can book any listing they don't own
+- Date picker with live price breakdown (nights × price + service fee)
+- Conflict detection — no double bookings on overlapping dates
+- Auto-generated unique Booking ID (e.g. `WL12345678`)
+- **Confirmation email** sent automatically with PDF ticket attached
+- **Download Ticket** — printable PDF boarding-pass style ticket
+- **Download Confirmation Letter** — formal PDF letter for property check-in
+- **Print preview** — preview ticket or letter before confirming
+- Cancel booking from My Bookings page
+- My Bookings dashboard — view all past and upcoming bookings
+
 ---
 
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/mosharib-dev/wanderlust.git
 cd wanderlust
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
@@ -52,6 +69,7 @@ npm install
 ### 3. Set up environment variables
 
 Create a `.env` file in the root directory:
+
 ```env
 ATLASDB_URL=your_mongodb_atlas_connection_string
 SECRET=your_session_secret_key
@@ -59,14 +77,21 @@ CLOUD_NAME=your_cloudinary_cloud_name
 CLOUD_API_KEY=your_cloudinary_api_key
 CLOUD_API_SECRET=your_cloudinary_api_secret
 MAP_TOKEN=your_mapbox_access_token
+GMAIL_USER=your_gmail_address
+GMAIL_PASS=your_gmail_app_password
 ```
 
+> ⚠️ **Gmail setup** — `GMAIL_PASS` must be a 16-digit **App Password**, not your regular Gmail password.
+> Generate one at: Google Account → Security → 2-Step Verification → App Passwords
+
 ### 4. Seed the database (optional)
+
 ```bash
 node seed.js
 ```
 
 ### 5. Start the server
+
 ```bash
 node app.js
 ```
@@ -90,16 +115,34 @@ Visit `http://localhost:8080`
 
 ```
 wanderlust/
-├── controllers/        # Route logic
-├── models/             # Mongoose schemas
-├── routes/             # Express routers
-├── views/              # EJS templates
-├── Public/             # Static assets (CSS, JS)
-├── utils/              # Helper classes (ExpressError, wrapAsync)
-├── middleware.js        # Custom middleware
-├── schema.js           # Joi validation schemas
-├── app.js              # Main entry point
-└── seed.js             # Database seeder
+├── controllers/        
+│   ├── booking.js      
+│   ├── listing.js
+│   ├── review.js
+│   └── user.js
+├── models/             
+│   ├── booking.js      
+│   ├── listing.js
+│   ├── review.js
+│   └── user.js
+├── routes/             
+│   ├── booking.js     
+│   ├── myBookings.js   
+│   ├── listing.js
+│   ├── review.js
+│   └── user.js
+├── views/              
+│   ├── bookings/
+│   │   ├── booking.ejs      
+│   │   └── my-bookings.ejs  
+│   ├── listing/
+│   └── Layout/
+├── Public/             
+├── utils/              
+├── middleware.js       
+├── schema.js          
+├── app.js             
+└── seed.js            
 ```
 
 ---
@@ -109,6 +152,7 @@ wanderlust/
 - **MongoDB Atlas** — Free M0 cluster is sufficient for development
 - **Cloudinary** — Free tier offers 25GB storage
 - **Mapbox** — Free tier includes 50,000 map loads/month
+- **Gmail SMTP** — Requires 2-Step Verification + App Password enabled on your Google account
 
 ---
 
